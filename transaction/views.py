@@ -21,7 +21,8 @@ class DepositeAPIView(generics.CreateAPIView):
         recipient = User.objects.get(account_number=account_number)
         user.balance += amount
         user.save()
-        Transaction.objects.create(amount=amount, user=user, action=action, account_number=account_number)
+        status = 'Successful'
+        Transaction.objects.create(amount=amount, user=user, action=action, account_number=account_number, status=status)
         return response.Response(recipient.username)
     
 class TransferAPIView(generics.CreateAPIView):
@@ -37,7 +38,8 @@ class TransferAPIView(generics.CreateAPIView):
         user.save()
         recipient.balance += amount
         recipient.save()
-        Transaction.objects.create(amount=amount, user=user, action=action, account_number=account_number)
+        status = 'Successful'
+        Transaction.objects.create(amount=amount, user=user, action=action, account_number=account_number, status=status)
 
     
         
