@@ -6,6 +6,7 @@ charset-normalizer==2.1.1
 coreapi==2.3.3
 coreschema==0.0.4
 cryptography==38.0.3
+decouple==0.0.7
 defusedxml==0.7.1
 Deprecated==1.2.14
 dj-database-url==2.0.0
@@ -50,6 +51,8 @@ pyasn1-modules==0.3.0
 pycparser==2.21
 PyJWT==2.6.0
 pymongo==4.3.3
+python-decouple==3.8
+python-dotenv==1.0.0
 python3-openid==3.2.0
 pytz==2022.6
 PyYAML==6.0
