@@ -102,3 +102,73 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'email', 'username', 'account_number', 'balance']
+        
+        
+
+
+
+class UserProfileUpdateSerializer(serializers.ModelSerializer):
+    # profile = UserProfileSerializer(required=False)
+    current_password = serializers.CharField(write_only=True, required=False)
+    # delete_image = serializers.BooleanField(write_only=True, required=False)
+
+    class Meta:
+        model = User
+        fields = (
+            'email',
+            'username',
+            'current_password',
+            'password',
+            # 'phone_number',
+            # 'lastname',
+            # 'fullname',
+            # 'image',
+            # 'delete_image'
+        )
+        
+        
+    def validate(self, attrs):
+        request = self.context['request']
+        user = request.user
+        current_password = attrs.get('current_password')
+
+        if current_password and not user.check_password(current_password):
+            raise serializers.ValidationError("Current password is incorrect.")
+
+        return attrs
+
+    def update(self, instance, validated_data):
+        # user = self.context[request].user
+        email = validated_data.get('email', instance.email)
+        username = validated_data.get('username', instance.username)
+        password = validated_data.get('password', instance.password)
+        # fullname = validated_data.get('fullname', instance.fullname)
+        # lastname = validated_data.get('lastname', instance.lastname)
+        # phone_number = validated_data.get('phone_number', instance.phone_number)
+        # image = validated_data.get('bio', instance.image)
+        # delete_image = validated_data.get('delete_image', False)
+
+
+
+        if email is not None:
+            instance.email=email
+        if username is not None:
+            instance.username = username
+        # if fullname is not None:
+        #     instance.fullname = fullname
+        # if lastname is not None:
+        #     instance.lastname = lastname
+        # if phone_number is not None:
+        #     instance.phone_number = phone_number  
+        # if image is not None:
+        #     instance.image = image
+        # if delete_image:
+        #    instance.delete_image = None
+        #    instance.image.delete(save=False)
+            
+        new_password = password
+        if new_password:
+            instance.set_password(new_password)
+         
+        instance.save()
+        return instance

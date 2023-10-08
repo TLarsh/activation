@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from authenticate.serializers import EmailVerifySerializer, LoginSerializer, RegisterSerializer, RequestEmailPasswordResetSerializer, SetNewPasswordSerializer, UserSerializer
+from authenticate.serializers import EmailVerifySerializer, LoginSerializer, RegisterSerializer, RequestEmailPasswordResetSerializer, SetNewPasswordSerializer, UserProfileUpdateSerializer, UserSerializer
 from rest_framework import generics, status, permissions
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -107,4 +107,10 @@ class SetNewPasswordAPIView(generics.GenericAPIView):
 class ViewUsersAPIView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    
+
+
+class UserProfileUpdateAPIView(generics.UpdateAPIView):
+    serializer_class = UserProfileUpdateSerializer
+    permission_classes = (permissions.AllowAny,)
     

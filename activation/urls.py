@@ -27,7 +27,7 @@ schema_view = get_schema_view(
    openapi.Info(
       title="ACTIVATION",
       default_version='v1',
-      description="Test description",
+      description="Activation description",
       terms_of_service="https://www.google.com/policies/terms/",
       contact=openapi.Contact(email="adeyemisam2015@gmailcom."),
       license=openapi.License(name="Test License"),
